@@ -27,6 +27,7 @@ export function makeAspectCrop(crop: Partial<Crop>, aspect: number, containerWid
 
   if (crop.width) {
     pixelCrop.height = pixelCrop.width / aspect
+
   }
 
   if (crop.height) {
@@ -46,7 +47,7 @@ export function makeAspectCrop(crop: Partial<Crop>, aspect: number, containerWid
   if (crop.unit === '%') {
     return convertToPercentCrop(pixelCrop, containerWidth, containerHeight)
   }
-
+  console.log(pixelCrop)
   return pixelCrop
 }
 

@@ -59,7 +59,7 @@ export async function cropPreview(image: HTMLImageElement, crop: PixelCrop, scal
   }
 
   const blob = await toBlob(canvas)
-
+  console.log(blob,  URL.createObjectURL(blob))
   if (!blob) {
     previewUrl = ''
     return ''

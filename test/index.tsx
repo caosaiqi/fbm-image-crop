@@ -19,7 +19,10 @@ function App() {
     if (e.target.files && e.target.files.length > 0) {
       setCrop(undefined) // Makes crop preview update between images.
       const reader = new FileReader()
-      reader.addEventListener('load', () => setImgSrc(reader.result?.toString() || ''))
+      reader.addEventListener('load', () => {
+        console.log(reader)
+        setImgSrc(reader.result?.toString() || '')
+      })
       reader.readAsDataURL(e.target.files[0])
     }
   }
@@ -48,6 +51,7 @@ function App() {
       height
     )
 
+    console.log(crop)
     setCrop(crop)
   }
 
@@ -55,7 +59,10 @@ function App() {
     async () => {
       if (completedCrop?.width && completedCrop?.height && imgRef.current) {
         // We use canvasPreview as it's much faster than imgPreview.
-        cropPreview(imgRef.current, completedCrop, scale, rotate)
+        cropPreview(imgRef.current, completedCrop, scale, rotate).then(ret => {
+          console.log(ret)
+          setPreviewSrc(ret)
+        })
       }
     },
     100,
