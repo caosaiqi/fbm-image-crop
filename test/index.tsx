@@ -1,12 +1,10 @@
 import ReactDOM from 'react-dom'
 import React, { useState, useRef } from 'react'
-import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop } from '../src'
-import { cropPreview } from './cropPreview'
+import ReactCrop, { centerCrop, makeAspectCrop, Crop, PixelCrop, cropPreview } from '../src'
 import { useDebounceEffect } from './useDebounceEffect'
 
-import '../src/ReactCrop.scss'
-
 function App() {
+  const ref = useRef()
   const [imgSrc, setImgSrc] = useState('')
   const [previewSrc, setPreviewSrc] = useState('')
   const imgRef = useRef<HTMLImageElement | null>(null)
@@ -20,7 +18,6 @@ function App() {
       setCrop(undefined) // Makes crop preview update between images.
       const reader = new FileReader()
       reader.addEventListener('load', () => {
-        console.log(reader)
         setImgSrc(reader.result?.toString() || '')
       })
       reader.readAsDataURL(e.target.files[0])
@@ -51,7 +48,6 @@ function App() {
       height
     )
 
-    console.log(crop)
     setCrop(crop)
   }
 
@@ -97,6 +93,8 @@ function App() {
       </div>
       {Boolean(imgSrc) && (
         <ReactCrop
+          ref={ref}
+          disabled={true}
           crop={crop}
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={c => setCompletedCrop(c)}
